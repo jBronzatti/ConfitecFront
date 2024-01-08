@@ -1,0 +1,57 @@
+<form [formGroup]="form" (ngSubmit)="onConfirm()">
+    <h1 mat-dialog-title>{{ isNew ? 'Criar Usuário' : 'Editar Usuário' }}</h1>
+    <button mat-raised-button *ngIf="isNew" class="Id">Id: 0</button>
+    <button mat-raised-button *ngIf="!isNew" class="Id">Id: {{data.id}}</button>
+    <div mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome" required>
+            <mat-error *ngIf="form.controls['nome'].hasError('required')">Nome é obrigatório.</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Sobrenome</mat-label>
+            <input matInput formControlName="sobrenome" required>
+            <mat-error *ngIf="form.controls['sobrenome'].hasError('required')">Sobrenome é obrigatório.</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input #newEmail type="email" matInput formControlName="email" placeholder="Ex. pat@example.com" required>
+            <mat-error *ngIf="form.controls['email'].hasError('required')">
+                Email é obrigatório.
+            </mat-error>
+            <mat-error *ngIf="form.controls['email'].hasError('emailError')">
+                Insira um email válido.
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field style="width:11.05vw; min-width:212px;">
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput [matDatepicker]="datepicker" formControlName="dataNascimento" (click)="datepicker.open()"
+                [max]="maxDate" required value="data.dataNascimento">
+            <mat-error *ngIf="form.controls['dataNascimento'].hasError('required')">Data obrigatória.</mat-error>
+            <mat-datepicker-toggle matIconSuffix [for]="datepicker" color="primary"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker color="primary"></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Escolaridade</mat-label>
+            <mat-select matInput [(value)]="data.escolaridade" formControlName="escolaridade" required>
+                <mat-option *ngFor="let item of listEscolaridade" [value]="item.valor">
+                    {{ item.label }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls['escolaridade'].hasError('required')">Escolaridade é
+                obrigatória.</mat-error>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button color="warn" type="button" (click)="onCancel()" class="cancelButton"
+            style="margin: auto; display: flex; justify-content: center; margin-bottom: 30px;">Cancelar</button>
+        <button mat-raised-button color="primary" type="submit"
+            style="margin: auto; display: flex; justify-content: center; margin-bottom: 30px;">
+            {{ isNew ? 'Criar' : 'Editar' }}
+        </button>
+    </div>
+</form>

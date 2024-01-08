@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirmação</h1>
+<div mat-dialog-content>
+  <p>Tem certeza que deseja excluir o usuário {{ data.nome }} (Id: {{ data.id }})?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onCancel()" style="margin: auto; display: flex; justify-content: center; margin-bottom: 15px;">Cancelar</button>
+  <button mat-raised-button color="warn" (click)="onConfirm()" style="margin: auto; display: flex; justify-content: center; margin-bottom: 15px;">Excluir</button>
+</div>
